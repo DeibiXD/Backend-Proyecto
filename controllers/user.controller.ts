@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { user } from '../models/user.model';
 import { userSchema } from '../models/user.schema';
+import { fileSchema } from '../models/file.schema';
 
 export const obtenerUsers = (peticion: Request, respuesta: Response) => {
     userSchema.find()
@@ -60,44 +61,28 @@ export const obtenerSnippetsDeUsuario = (req: Request, res: Response) => {
       });
   };
 
-  // New function to add snippets to the user's array
-export const agregarSnippetsAUsuario = async (req: Request, res: Response) => {
+  export const agregarSnippetAUsuario = async (req: Request, res: Response) => {
+    const userId = req.params.userId;
+    const snippetId = req.params.snippetId;
+  
     try {
-      const userId = req.params.userId; // Assuming the parameter is userId
-      const { snippetsToAdd } = req.body;
-  
-      // Validate user tier for snippet storage
-      const user = await userSchema.findById(userId);
-      if (!user) {
-        res.status(404).send({ message: 'Usuario no encontrado' });
-        return;
+      // Check if the snippet exists
+      const existingSnippet = await fileSchema.findById(snippetId);
+      if (!existingSnippet) {
+        return res.status(404).send({ message: 'Snippet no encontrado' });
       }
   
-      const currentSnippets = user.snippets || [];
-      const tier = user.tier || 0; // Assuming a default value of 0 if tier is not present
+      // Update the user to add the existing snippet
+      const updatedUser = await userSchema.findByIdAndUpdate(
+        userId,
+        { $push: { snippets: existingSnippet._id } },
+        { new: true }
+      );
   
-      // Set snippet storage limits based on tier
-      let snippetLimit = Infinity; // Default: Unlimited storage
-      if (tier === 2) {
-        snippetLimit = 20;
-      } else if (tier === 3) {
-        snippetLimit = 10;
-      }
-  
-      // Check if the user is valid for more storage
-      if (currentSnippets.length + snippetsToAdd.length > snippetLimit) {
-        res.status(400).send({ message: 'El usuario ha alcanzado su límite de almacenamiento de snippets' });
-        return;
-      }
-  
-      // Add snippets to the user's array
-      user.snippets = currentSnippets.concat(snippetsToAdd);
-      const updatedUser = await user.save();
-  
-      res.send({ message: 'Snippets agregados correctamente', user: updatedUser });
+      res.send({ message: 'Se agregó el snippet al usuario', snippet: existingSnippet, user: updatedUser });
     } catch (error) {
-      console.error('Error al agregar snippets al usuario:', error);
-      res.status(500).send({ message: 'Error al agregar snippets al usuario', error });
+      console.error(error);
+      res.status(500).send({ message: 'Internal Server Error', error });
     }
   };
 
@@ -119,3 +104,36 @@ export const agregarSnippetsAUsuario = async (req: Request, res: Response) => {
       res.status(500).send({ message: 'Error al encontrar usuario por credenciales', error });
     }
   };
+
+  // New function to delete a snippet from the user's array
+export const eliminarSnippetDeUsuario = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId; // Assuming the parameter is userId
+    const { snippetId } = req.body;
+
+    // Find user by ID
+    const user = await userSchema.findById(userId);
+    if (!user) {
+      res.status(404).send({ message: 'Usuario no encontrado' });
+      return;
+    }
+
+    // Find index of the snippet to delete
+    const snippetIndex = user.snippets.findIndex((s: any) => s.toString() === snippetId);
+    if (snippetIndex === -1) {
+      res.status(404).send({ message: 'Snippet no encontrado en la lista del usuario' });
+      return;
+    }
+
+    // Remove the snippet from the array
+    user.snippets.splice(snippetIndex, 1);
+    
+    // Save the updated user
+    const updatedUser = await user.save();
+
+    res.send({ message: 'Snippet eliminado correctamente', user: updatedUser });
+  } catch (error) {
+    console.error('Error al eliminar snippet del usuario:', error);
+    res.status(500).send({ message: 'Error al eliminar snippet del usuario', error });
+  }
+};

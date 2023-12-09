@@ -41,3 +41,21 @@ export const obtenerSnippets = (peticion: Request, respuesta: Response) => {
           res.end();
       });
   }
+
+  export const obtenerSnippetPorId = async (req: Request, res: Response) => {
+    try {
+      const snippetId = req.params.id;
+  
+      // Find snippet by ID
+      const snippet = await fileSchema.findById(snippetId);
+      if (!snippet) {
+        res.status(404).send({ message: 'Snippet no encontrado' });
+        return;
+      }
+  
+      res.send(snippet);
+    } catch (error) {
+      console.error('Error al obtener snippet por ID:', error);
+      res.status(500).send({ message: 'Error al obtener snippet por ID', error });
+    }
+  };
