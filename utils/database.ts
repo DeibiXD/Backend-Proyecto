@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 export class Database {
     server:string ='localhost';
     port:string = '27017';
-    db:string = 'pinterest';
+    db:string = 'proyecto';
 
   constructor() {
     // Cadena de conexión
