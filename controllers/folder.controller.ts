@@ -48,13 +48,11 @@ export const obtenerFolders = (peticion: Request, respuesta: Response) => {
     const snippetId = req.params.snippetId;
   
     try {
-      // Check if the snippet exists
       const existingSnippet = await fileSchema.findById(snippetId);
       if (!existingSnippet) {
         return res.status(404).send({ message: 'Snippet no encontrado' });
       }
   
-      // Update the folder to add the existing snippet
       const updatedFolder = await folderSchema.findByIdAndUpdate(
         folderId,
         { $push: { snippets: existingSnippet._id } },
