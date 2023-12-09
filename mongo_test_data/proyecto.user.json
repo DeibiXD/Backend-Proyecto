@@ -1,0 +1,59 @@
+[{
+  "_id": {
+    "$oid": "65738b0ae3446db705106016"
+  },
+  "username": "john_doe",
+  "password": "securePass123",
+  "tier": 2,
+  "snippets": [
+    {
+      "$oid": "657386b5e3446db705106007"
+    },
+    {
+      "$oid": "657386f0e3446db705106009"
+    }
+  ],
+  "folders": [
+    {
+      "$oid": "657389d4e3446db705106012"
+    },
+    {
+      "$oid": "657389f1e3446db705106014"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "65738b27e3446db705106017"
+  },
+  "username": "alice_smith",
+  "password": "userPass456",
+  "tier": 1,
+  "snippets": [
+    {
+      "$oid": "657386dfe3446db705106008"
+    },
+    {
+      "$oid": "65738738e3446db70510600e"
+    }
+  ],
+  "folders": [
+    {
+      "$oid": "657389e6e3446db705106013"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "65738b2fe3446db705106018"
+  },
+  "username": "bob_jenkins",
+  "password": "pass123",
+  "tier": 3,
+  "snippets": [
+    {
+      "$oid": "65738733e3446db70510600d"
+    }
+  ],
+  "folders": []
+}]

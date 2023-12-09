@@ -1,0 +1,40 @@
+[{
+  "_id": {
+    "$oid": "657386b5e3446db705106007"
+  },
+  "mode": 1,
+  "code": "<html>\n  <head>\n    <title>Hello, HTML!</title>\n  </head>\n  <body>\n    <h1>Hello, World!</h1>\n  </body>\n</html>",
+  "name": "index.html"
+},
+{
+  "_id": {
+    "$oid": "657386dfe3446db705106008"
+  },
+  "mode": 2,
+  "code": "body {\n  background-color: #f0f0f0;\n  font-family: Arial, sans-serif;\n  text-align: center;\n}\nh1 {\n  color: blue;\n}",
+  "name": "styles.css"
+},
+{
+  "_id": {
+    "$oid": "657386f0e3446db705106009"
+  },
+  "mode": 3,
+  "code": "function greet(name) {\n  alert('Hello, ' + name + '!');\n}\n\nlet user = 'John';\ngreet(user);",
+  "name": "script.js"
+},
+{
+  "_id": {
+    "$oid": "65738733e3446db70510600d"
+  },
+  "mode": 1,
+  "code": "<html>\n  <body>\n    <p>This is another HTML file.</p>\n  </body>\n</html>",
+  "name": "another.html"
+},
+{
+  "_id": {
+    "$oid": "65738738e3446db70510600e"
+  },
+  "mode": 2,
+  "code": "body {\n  font-size: 18px;\n}\n\np {\n  color: green;\n}",
+  "name": "additional-styles.css"
+}]

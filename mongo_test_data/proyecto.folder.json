@@ -1,0 +1,42 @@
+[{
+  "_id": {
+    "$oid": "657389d4e3446db705106012"
+  },
+  "folderName": "HTML Projects",
+  "snippets": [
+    {
+      "$oid": "657386b5e3446db705106007"
+    },
+    {
+      "$oid": "65738733e3446db70510600d"
+    }
+  ],
+  "owner": "user1"
+},
+{
+  "_id": {
+    "$oid": "657389e6e3446db705106013"
+  },
+  "folderName": "CSS Styling",
+  "snippets": [
+    {
+      "$oid": "657386dfe3446db705106008"
+    },
+    {
+      "$oid": "65738738e3446db70510600e"
+    }
+  ],
+  "owner": "user2"
+},
+{
+  "_id": {
+    "$oid": "657389f1e3446db705106014"
+  },
+  "folderName": "JavaScript Functions",
+  "snippets": [
+    {
+      "$oid": "657386f0e3446db705106009"
+    }
+  ],
+  "owner": "user1"
+}]
