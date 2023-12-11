@@ -65,3 +65,21 @@ export const obtenerFolders = (peticion: Request, respuesta: Response) => {
       res.status(500).send({ message: 'Internal Server Error', error });
     }
   };
+
+  export const obtenerFolderPorId = async (req: Request, res: Response) => {
+    try {
+      const snippetId = req.params.id;
+  
+      // Find snippet by ID
+      const snippet = await folderSchema.findById(snippetId);
+      if (!snippet) {
+        res.status(404).send({ message: 'Folder no encontrado' });
+        return;
+      }
+  
+      res.send(snippet);
+    } catch (error) {
+      console.error('Error al obtener folder por ID:', error);
+      res.status(500).send({ message: 'Error al obtener folder por ID', error });
+    }
+  };

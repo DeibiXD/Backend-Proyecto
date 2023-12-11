@@ -1,5 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
+
 import { Request, Response } from 'express';
 import { Database } from './utils/database';
 import routerSnippets from './routers/file.router';
@@ -10,6 +12,7 @@ dotenv.config();
 const db: Database = new Database(); // Connects to the database
 const app = express();
 const port: string | undefined = process.env.PORT;
+app.use(cors());
 
 app.use(express.json());
 app.use('/user', routerUsers);
